@@ -19,5 +19,7 @@
 #include "pid.h"
 #include "rc_pwm.h"
 #include "debugger.h"
+#include "PS3.h"
+#include "I2C.h"
 
 #endif /* INCLUDE_H_ */

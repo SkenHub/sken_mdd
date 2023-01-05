@@ -13,10 +13,14 @@ Mdd::Mdd(void) :
 {
 }
 
-void Mdd::init(CommunicationMode mode,int period)
+void Mdd::init(CommunicationMode mode,int period,uint8_t id)
 {
 	communication_mode = mode;
-	communication_module.init(mode);
+	if(mode == UART_MODE){
+		communication_module.init(mode);
+	}else if(mode == CAN_MODE){
+		communication_module.init(mode,id);
+	}
 	motor_control_module.init(period);
 }
 
@@ -24,16 +28,18 @@ void Mdd::update(void)
 {
 	if (communication_mode == UART_MODE) {
 		if (communication_module.uartDataRead()) {
-			uartModeProcess(communication_module.getData());
+			ModeProcess(communication_module.getData());
 		}
 	}
-	else if (communication_mode == CAN_MODE) { //未実装
-
+	else if (communication_mode == CAN_MODE) {
+		if(communication_module.canDataRead()){
+			ModeProcess(communication_module.getData());
+		}
 	}
 	motor_control_module.control();
 }
 
-void Mdd::uartModeProcess(const receive_data_t& receive_data)
+void Mdd::ModeProcess(const receive_data_t& receive_data)
 {
 	//モータ制御データを取得し，必要箇所のみ書き換えて再登録する
 	motor_control_data_t motor_control_data = motor_control_module.getMotorControlData();
@@ -119,13 +125,17 @@ receive_data_t Mdd::getReceiveData(void)
 	return communication_module.getData();
 }
 
+Can_data Mdd::getReceiveCanData(void){
+	return communication_module.getCanData();
+}
+
 void Mdd::sendData(void)
 {
 	if (communication_mode == UART_MODE) {
 		communication_module.uartDataSend();
 	}
 	else if (communication_mode == CAN_MODE) { //未実装
-
+		communication_module.canDataSend();
 	}
 }
 

@@ -18,7 +18,7 @@ Utilities/STM32F4xx-Nucleo/%.o: ../Utilities/STM32F4xx-Nucleo/%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Compiler'
 	@echo $(PWD)
-	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -I"C:/Users/hotaka/workspace/sken_mdd/HAL_Driver/Inc/Legacy" -I"C:/Users/hotaka/workspace/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"C:/Users/hotaka/workspace/sken_mdd/inc" -I"C:/Users/hotaka/workspace/sken_mdd/CMSIS/device" -I"C:/Users/hotaka/workspace/sken_mdd/CMSIS/core" -I"C:/Users/hotaka/workspace/sken_mdd/HAL_Driver/Inc" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -I"D:/workspace/sken_mdd/HAL_Driver/Inc/Legacy" -I"D:/workspace/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"D:/workspace/sken_mdd/inc" -I"D:/workspace/sken_mdd/CMSIS/device" -I"D:/workspace/sken_mdd/CMSIS/core" -I"D:/workspace/sken_mdd/HAL_Driver/Inc" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

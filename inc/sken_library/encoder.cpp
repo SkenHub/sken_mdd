@@ -7,7 +7,7 @@
 
 #include "encoder.h"
 
-void Encoder::init(Pin a_pin,Pin b_pin,TimerNumber tim_num)
+void Encoder::init(Pin a_pin,Pin b_pin,TimerNumber tim_num,double diameter,int ppr,int period)
 {
 	a_pin_group_ = io_convert::PIN_GROUP[a_pin / 16];
 	gpio_init_encoder_a_.Pin = io_convert::PIN_NUM[a_pin % 16];
@@ -46,11 +46,30 @@ void Encoder::init(Pin a_pin,Pin b_pin,TimerNumber tim_num)
 	HAL_TIMEx_MasterConfigSynchronization(&encoder_handle_, &encoder_mas_config_);
 	HAL_TIM_Encoder_Start(&encoder_handle_, TIM_CHANNEL_ALL);
 	encoder_tim_->CNT = 30000;
+
+	diameter_ = diameter;
+	ppr_ = ppr;
+	period_ = period;
 }
 
 int Encoder::read(void)
 {
 	return (encoder_tim_->CNT) - 30000;
+}
+
+void Encoder::interrupt(Encoder_data* encoder_data){
+	if(read() >= 20000||read() <= -20000){
+		if(read() >= 20000){limit++;}else{limit--;}
+		reset();
+	}
+	encoder_data->count = read()+limit*20000;
+	encoder_data->rot = (encoder_data->count)/(double)ppr_;
+	encoder_data->deg = encoder_data->rot*360.0;
+	encoder_data->distance = encoder_data->rot*(PI*diameter_);
+
+	encoder_data->rps = (double)(encoder_data->rot-before_rot_)/((double)period_*0.001);
+	before_rot_ = encoder_data->rot;
+	encoder_data->volcity = encoder_data->rps*PI*diameter_;
 }
 
 void Encoder::reset(void)

@@ -28,7 +28,7 @@ extern "C" void CAN2_RX1_IRQHandler(void)
 	can_2.receiveInterruptCallback();
 }
 
-Can::Can(void) : can_start_flag_(false),interrupt_func_array_flag_(0x00) {}
+Can::Can(void) : can_start_flag_(false),can_interrupt_flag_ (false) {}
 
 bool Can::init(Pin tx_pin,Pin rx_pin,CanSelect can_select)
 {
@@ -115,9 +115,10 @@ CAN_HandleTypeDef* Can::getCanHandle(void)
 
 void Can::receiveInterruptCallback(void)
 {
-	for(int i = 0; i < 8; i++){
-		if((interrupt_func_array_flag_ & (1 << i)) != 0){
-			interruptFuncArray[i](can_rx_);
+	if(can_interrupt_flag_){
+		(*can_data_).rx_stdid = can_rx_.StdId;
+		for(int i=0 ; i < 8 ; i++){
+			(*can_data_).rx_data[i] = can_rx_.Data[i];
 		}
 	}
 }
@@ -135,21 +136,17 @@ HAL_StatusTypeDef Can::transmit(uint32_t stdid,uint8_t* data_p,int data_size,int
 	return HAL_CAN_Transmit(&can_handle_,dead_time);
 }
 
-bool Can::addRceiveInterruptFunc(void(*function_p)(CanRxMsgTypeDef),int id)
+void Can::addRceiveInterruptFunc(Can_data* can_data)
 {
-	if(id < 0 || 7 < id){
-		return false;
-	}
-	interruptFuncArray[id] = function_p;
-	interrupt_func_array_flag_ |= 1 << id;
-	return true;
+	can_data_ = can_data;
+	can_interrupt_flag_ = true;
 }
 
-bool Can::deleteRceiveInterruptFunc(int id)
+void Can::deleteRceiveInterruptFunc()
 {
-	if(id < 0 || 7 < id){
-		return false;
-	}
-	interrupt_func_array_flag_ &= ~(1 << id);
-	return true;
+	can_interrupt_flag_ = false;
+}
+
+CanRxMsgTypeDef Can::rx_receive(){
+	return can_rx_;
 }

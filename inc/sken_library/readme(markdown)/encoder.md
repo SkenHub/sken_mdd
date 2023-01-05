@@ -5,6 +5,25 @@
 
 インクリメンタル式ロータリーエンコーダのパルスをカウントするクラス．
 
+# struct Encoder_data
+エンコーダからの取得値を格納する関数。タイマー割り込みと合わせるて使う。
+
+[要素]  
+カウンタ値    
+回転数[回転]    
+角度[°]   
+移動距離[mm]   
+速度[mm/s]   
+回転速度[rps]   
+
+[要素一覧]    
+``` c++
+struct Encoder_data{
+	int count;
+	double rot,deg,distance,volcity,rps;
+};
+```
+
 # class Encoder
 
 ## void Encoder::init(Pin a_pin,Pin b_pin,TimerNumber tim_num)
@@ -68,6 +87,40 @@ int main(void)
     while(1)
     {
         count = encoder.read();
+    }
+}
+```
+
+## void Encoder::interrupt(Encoder_data* encoder_data)
+Encoder_data構造体にエンコーダからの取得値を格納する関数。タイマー割り込み関数内で使用する。    
+
+[パラメータ]       
+Encoder_data構造体アドレス
+
+[戻り値]     
+なし
+
+[サンプルコード]  
+タイマー割り込みで取得値を格納する
+
+``` c++
+#include "stm32f4xx.h"
+#include "sken_library/include.h"
+
+Encoder encoder;
+Encoder_data e_data;
+
+void encoder_interrupt(){
+    encoder.interrupt(&e_data);
+}
+
+int main(void){
+    sken_system.init();
+    encoder.init(A0,A1,TIMER2);
+    sken_system.addTimerInterruptFunc(encoder_interrupt,0,1);
+    while(1)
+    {
+        
     }
 }
 ```

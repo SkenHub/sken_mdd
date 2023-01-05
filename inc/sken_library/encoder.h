@@ -10,11 +10,16 @@
 
 #include "io_name.h"
 
-class Encoder
-{
+struct Encoder_data{
+	int count;
+	double rot,deg,distance,volcity,rps;
+};
+
+class Encoder{
 public:
-	void init(Pin a_pin,Pin b_pin,TimerNumber tim_num);
-	int read(void);
+	void init(Pin a_pin,Pin b_pin,TimerNumber tim_num,double diameter = 100,int ppr = 8192,int period = 1);
+	int read();
+	void interrupt(Encoder_data* encoder_data);
 	void reset(void);
 private:
 	GPIO_TypeDef* a_pin_group_;
@@ -25,6 +30,8 @@ private:
 	TIM_HandleTypeDef encoder_handle_;
 	TIM_Encoder_InitTypeDef encoder_init_;
 	TIM_MasterConfigTypeDef encoder_mas_config_;
+	int ppr_,diameter_,period_,limit;
+	double before_rot_;
 };
 
 #endif /* ENCODER_H_ */

@@ -29,6 +29,18 @@ enum {
 	ENCODER_RESOLUTION_CONFIG
 };
 
+enum MddStdid{
+	None,
+	MDD_0 = 0xF0,
+	MDD_1 = 0xF1,
+	MDD_2 = 0xF2,
+	MDD_3 = 0xF3,
+	MDD_4 = 0xF4,
+	MDD_5 = 0xF5,
+	MDD_6 = 0xF6,
+	MDD_7 = 0xF7,
+};
+
 struct receive_data_t {
 	uint8_t seq;
 	uint8_t id;

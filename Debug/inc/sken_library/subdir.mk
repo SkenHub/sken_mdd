@@ -4,6 +4,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../inc/sken_library/I2C.cpp \
+../inc/sken_library/PS3.cpp \
 ../inc/sken_library/adc.cpp \
 ../inc/sken_library/can.cpp \
 ../inc/sken_library/debugger.cpp \
@@ -17,6 +19,8 @@ CPP_SRCS += \
 ../inc/sken_library/uart.cpp 
 
 OBJS += \
+./inc/sken_library/I2C.o \
+./inc/sken_library/PS3.o \
 ./inc/sken_library/adc.o \
 ./inc/sken_library/can.o \
 ./inc/sken_library/debugger.o \
@@ -30,6 +34,8 @@ OBJS += \
 ./inc/sken_library/uart.o 
 
 CPP_DEPS += \
+./inc/sken_library/I2C.d \
+./inc/sken_library/PS3.d \
 ./inc/sken_library/adc.d \
 ./inc/sken_library/can.d \
 ./inc/sken_library/debugger.d \
@@ -48,7 +54,7 @@ inc/sken_library/%.o: ../inc/sken_library/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU G++ Compiler'
 	@echo $(PWD)
-	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -I"C:/Users/hotaka/workspace/sken_mdd/HAL_Driver/Inc/Legacy" -I"C:/Users/hotaka/workspace/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"C:/Users/hotaka/workspace/sken_mdd/inc" -I"C:/Users/hotaka/workspace/sken_mdd/CMSIS/device" -I"C:/Users/hotaka/workspace/sken_mdd/CMSIS/core" -I"C:/Users/hotaka/workspace/sken_mdd/HAL_Driver/Inc" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fno-exceptions -fno-rtti -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
+	arm-none-eabi-g++ -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DSTM32 -DSTM32F4 -DSTM32F446RETx -DNUCLEO_F446RE -DDEBUG -DSTM32F446xx -DUSE_HAL_DRIVER -I"D:/workspace/sken_mdd/HAL_Driver/Inc/Legacy" -I"D:/workspace/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"D:/workspace/sken_mdd/inc" -I"D:/workspace/sken_mdd/CMSIS/device" -I"D:/workspace/sken_mdd/CMSIS/core" -I"D:/workspace/sken_mdd/HAL_Driver/Inc" -O0 -g3 -Wall -fmessage-length=0 -ffunction-sections -c -fno-exceptions -fno-rtti -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

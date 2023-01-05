@@ -33,8 +33,8 @@ public:
 	bool changeTimerInterruptPeriod(int id,int period);
 	bool startCanCommunicate(Pin tx_pin,Pin rx_pin,CanSelect can_select);
 	bool canTransmit(CanSelect can_select,uint32_t stdid,uint8_t* data_p,int data_size,int dead_time = 10);
-	bool addCanRceiveInterruptFunc(CanSelect can_select,void(*function_p)(CanRxMsgTypeDef),int id);
-	bool deleteCanRceiveInterruptFunc(CanSelect can_select,int id);
+	bool addCanRceiveInterruptFunc(CanSelect can_select,Can_data* can_data);
+	bool deleteCanRceiveInterruptFunc(CanSelect can_select);
 private:
 	static bool instance_create_flag_;
 	uint8_t interrupt_func_array_flag_;
@@ -42,6 +42,7 @@ private:
 	void (*interruptFuncArray[8])(void);
 	void allClkEnable(void);
 	void setSysClock(void);
+	void SystemClock_Config();
 	void basicTimerSet(void);
 };
 

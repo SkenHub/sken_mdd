@@ -5,6 +5,25 @@
 
 millisなどの基本的な関数やCAN通信の制御など 
 
+# struct Can_data
+can通信の際に使う構造体。自身のスタンダードIDや送受信データを格納する。  
+
+[要素]  
+自身のスタンダードID  
+受信した際の送信側のスタンダードID  
+受信データ8バイト  
+送信データ8バイト  
+
+[要素一覧]  
+``` c++
+struct Can_data{
+	uint32_t my_stdid;
+	uint32_t rx_stdid;
+	uint8_t rx_data[8];
+	uint8_t tx_data[8];
+};
+```
+
 # class SYSTEM
 
 ## void SYSTEM::init(bool use_external_crystal = false)
@@ -317,34 +336,30 @@ int main(void)
 }
 ```
 
-## bool SYSTEM::addCanRceiveInterruptFunc(CAN_SELECT can_select,void(*function_p)(CanRxMsgTypeDef),int id)
-CAN通信で受信割り込み関数を追加する．
+## bool SYSTEM::addCanRceiveInterruptFunc(CAN_SELECT can_select,Can_data* can_data)
+CAN通信で受信割り込み関数を実行する．
 
 [パラメータ]  
 CAN番号．CAN_1かCAN_2から選択．  
-受信割り込み時に呼び出す関数のアドレス．  
-関数に与えるID．0から7の間で選択する．
+CAN通信用構造体のアドレス
 
 [戻り値]  
 成功したらtrue，失敗したらfalse
 
 [サンプルコード]  
-CAN_1の受信割り込み関数を追加する．
+CAN_1の受信割り込み関数を実行する．
 
 ``` c++
 #include "stm32f4xx.h"
 #include "sken_library/include.h"
 
-void func(CanRxMsgTypeDef)
-{
-
-}
+Can_data can_data;
 
 int main(void)
 {
     sken_system.init();
     sken_system.startCanCommunicate(B9,B8,CAN_1);
-    sken_system.addCanRceiveInterruptFunc(CAN_1,func,0);
+    sken_system.addCanRceiveInterruptFunc(CAN_1,&can_data);
     while(1)
     {
         
@@ -352,12 +367,11 @@ int main(void)
 }
 ```
 
-## bool SYSTEM::deleteCanRceiveInterruptFunc(CAN_SELECT can_select,int id)
+## bool SYSTEM::deleteCanRceiveInterruptFunc(CAN_SELECT can_select)
 CAN通信で受信割り込み関数を削除する．
 
 [パラメータ]  
 CAN番号．CAN_1かCAN_2から選択．  
-削除する関数のID．0から7の間で選択する．
 
 [戻り値]  
 成功したらtrue，失敗したらfalse
@@ -369,18 +383,15 @@ CAN_1の受信割り込み関数を1秒後に削除する．
 #include "stm32f4xx.h"
 #include "sken_library/include.h"
 
-void func(CanRxMsgTypeDef)
-{
-
-}
+Can_data can_data;
 
 int main(void)
 {
     sken_system.init();
     sken_system.startCanCommunicate(B9,B8,CAN_1);
-    sken_system.addCanRceiveInterruptFunc(CAN_1,func,0);
+    sken_system.addCanRceiveInterruptFunc(CAN_1,&can_data);
     sken_system.delayMillis(1000);
-    sken_system.deleteCanRceiveInterruptFunc(CAN_1,0);
+    sken_system.deleteCanRceiveInterruptFunc(CAN_1);
     while(1)
     {
         

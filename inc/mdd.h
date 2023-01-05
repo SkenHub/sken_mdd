@@ -25,11 +25,12 @@ class Mdd {
 	void omni4Calc(double vx,double vy,double omega,motor_control_data_t& motor_control_data);
 public:
 	Mdd(void);
-	void init(CommunicationMode mode,int period);
+	void init(CommunicationMode mode,int period,uint8_t id = 0);
 	void update(void);
-	void uartModeProcess(const receive_data_t& data);
+	void ModeProcess(const receive_data_t& data);
 	motor_control_data_t getMotorControlData(void);
 	receive_data_t getReceiveData(void);
+	Can_data getReceiveCanData(void);
 	void sendData(void);
 };
 

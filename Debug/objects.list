@@ -91,6 +91,8 @@
 "inc/communication.o"
 "inc/mdd.o"
 "inc/motor_control.o"
+"inc/sken_library/I2C.o"
+"inc/sken_library/PS3.o"
 "inc/sken_library/adc.o"
 "inc/sken_library/can.o"
 "inc/sken_library/debugger.o"

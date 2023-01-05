@@ -10,6 +10,8 @@
 
 #include "stm32f4xx.h"
 
+#define PI 3.1415926535
+
 enum Pin{
 	A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,A10,A11,A12,A13,A14,A15,
 	B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,
@@ -57,6 +59,17 @@ enum AdcSelect{
 	ADC_2 = 2
 };
 
+enum I2CSelect{
+	I2C_1,
+	I2C_2,
+	I2C_3
+};
+
+struct Can_data{
+	uint32_t rx_stdid;
+	uint8_t rx_data[8];
+};
+
 namespace io_convert
 {
 	extern GPIO_TypeDef* PIN_GROUP[4];
@@ -66,6 +79,8 @@ namespace io_convert
 	extern uint32_t TIM_C[4];
 	extern USART_TypeDef* UART_N[5];
 	extern uint8_t UART_AF[5];
+	extern I2C_TypeDef* I2C_NUM[3];
+	extern uint8_t I2C_Alternate[5];
 }
 
 #endif /* IO_NAME_H_ */

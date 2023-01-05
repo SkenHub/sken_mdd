@@ -27,7 +27,7 @@ class Gpio
 {
 public:
 	void init(Pin pin,Mode pin_mode);
-	void init(Pin pin,Mode pin_mode,TimerNumber tim_num,TimerChannel tim_ch,int frequency = 980);
+	void init(Pin pin,Mode pin_mode,TimerNumber tim_num,TimerChannel tim_ch,int frequency = 16800);
 	void write(PinState state);
 	void write(double percentage);
 	bool read(void);
