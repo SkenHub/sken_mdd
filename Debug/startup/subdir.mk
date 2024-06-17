@@ -15,7 +15,7 @@ startup/%.o: ../startup/%.s
 	@echo 'Building file: $<'
 	@echo 'Invoking: MCU GCC Assembler'
 	@echo $(PWD)
-	arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I"D:/workspace/sken_mdd/HAL_Driver/Inc/Legacy" -I"D:/workspace/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"D:/workspace/sken_mdd/inc" -I"D:/workspace/sken_mdd/CMSIS/device" -I"D:/workspace/sken_mdd/CMSIS/core" -I"D:/workspace/sken_mdd/HAL_Driver/Inc" -g -o "$@" "$<"
+	arm-none-eabi-as -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/HAL_Driver/Inc/Legacy" -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/Utilities/STM32F4xx-Nucleo" -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/inc" -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/CMSIS/device" -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/CMSIS/core" -I"C:/Users/hhhot/workspace/stm_project/sken_mdd/HAL_Driver/Inc" -g -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

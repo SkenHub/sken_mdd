@@ -26,14 +26,18 @@ MotorControl::MotorControl(void)
 void MotorControl::init(int period)
 {
 	motor_control_data.control_period = period;
-	motor[0].init(C9,C8,A8,TIMER1,CH1);
-	motor[1].init(B9,B8,A9,TIMER1,CH2);
-	motor[2].init(C11,C10,A10,TIMER1,CH3);
-	motor[3].init(C14,C15,A11,TIMER1,CH4);
-	encoder[0].init(C6,C7,TIMER8);
-	encoder[1].init(B4,B5,TIMER3);
+	motor[0].init(Apin,B14,TIMER8 ,CH2);
+	motor[0].init(Bpin,B15,TIMER8 ,CH3);
+	motor[1].init(Apin,A8 ,TIMER1 ,CH1);
+	motor[1].init(Bpin,A11,TIMER1 ,CH2);
+	motor[2].init(Apin,A6 ,TIMER13,CH1);
+	motor[2].init(Bpin,A7 ,TIMER14,CH1);
+	motor[3].init(Apin,B8 ,TIMER10,CH1);
+	motor[3].init(Bpin,B9 ,TIMER11,CH1);
+	encoder[0].init(A0,A1,TIMER5);
+	encoder[1].init(A5,B3,TIMER2);
 	encoder[2].init(B6,B7,TIMER4);
-	encoder[3].init(A0,A1,TIMER2);
+	encoder[3].init(C6,C7,TIMER3);
 }
 
 void MotorControl::setConfig(const motor_control_data_t& data)
@@ -60,10 +64,10 @@ void MotorControl::control(void)
 	}
 	for (int i = 0; i < 4; i++) {
 		if (motor_control_data.motor_data[i].pwm_mode) { //pwm_modeならそのまま出力
-			motor[i].turn(motor_control_data.motor_data[i].pwm_command);
+			motor[i].write(motor_control_data.motor_data[i].pwm_command);
 		}
 		else { //pid_modeでないならPID制御器を通して回転数制御を行う
-			motor[i].turn(pid_controller[i].control(motor_control_data.motor_data[i].target_rps,motor_control_data.motor_data[i].now_rps,motor_control_data.control_period));
+			motor[i].write(pid_controller[i].control(motor_control_data.motor_data[i].target_rps,motor_control_data.motor_data[i].now_rps,motor_control_data.control_period));
 		}
 	}
 }

@@ -88,6 +88,7 @@
 "HAL_Driver/Src/stm32f4xx_ll_usb.o"
 "HAL_Driver/Src/stm32f4xx_ll_utils.o"
 "Utilities/STM32F4xx-Nucleo/stm32f4xx_nucleo.o"
+"inc/Motor.o"
 "inc/communication.o"
 "inc/mdd.o"
 "inc/motor_control.o"

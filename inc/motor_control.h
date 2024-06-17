@@ -8,9 +8,9 @@
 #ifndef MOTOR_CONTROL_H_
 #define MOTOR_CONTROL_H_
 
+#include <Motor.h>
 #include "sken_library/include.h"
 #include "define_data_struct.h"
-#include "motor.h"
 
 class MotorControl {
 	Motor motor[4];
