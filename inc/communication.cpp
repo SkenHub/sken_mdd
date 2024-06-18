@@ -19,7 +19,7 @@ void Communication::init(CommunicationMode communicate_mode,uint8_t id)
 	//通信モードを選択
 	mode = communicate_mode;
 	if (communicate_mode == UART_MODE) {
-		uart.init(C10,C11,SERIAL3,115200);
+		uart.init(C10,C11,SERIAL4,115200);
 		uart.startDmaRead(uart_receive_data_dma,42);
 	}else if(communicate_mode == CAN_MODE){
 		selectStdid(id);

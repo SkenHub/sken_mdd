@@ -26,14 +26,14 @@ int main(void)
 	sw[2].init(C1,INPUT_PULLUP);
 	sw[3].init(C0,INPUT_PULLUP);
 
-	if(!sw[0].read()){
+	//if(!sw[0].read()){
 		mdd.init(UART_MODE,CONTROL_PERIOD);
-	}else{
+	/*}else{
 		for(int i=0; i<3; i++){
 			mdd_id |= ((!sw[i+1].read())<<(2-i));
 		}
 		mdd.init(CAN_MODE,CONTROL_PERIOD,mdd_id);
-	}
+	}*/
 	sken_system.addTimerInterruptFunc(control,CONTROL_PERIOD);
 	while (1) {
 		motor_control_data = mdd.getMotorControlData();
