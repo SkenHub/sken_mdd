@@ -89,7 +89,7 @@ void Gpio::write(PinState state)
 
 void Gpio::write(double percentage)
 {
-	if (percentage > 100) {
+	if (percentage > 98) {
 		pwm_oc_init_.Pulse = PWM_PERIOD;
 	}
 	else {

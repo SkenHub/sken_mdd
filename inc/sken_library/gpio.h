@@ -32,7 +32,7 @@ public:
 	void write(double percentage);
 	bool read(void);
 private:
-	const int PWM_PERIOD = 10000;
+	const int PWM_PERIOD = 9800;
 	GPIO_TypeDef* pin_group_;
 	uint16_t pin_number_;
 	Mode pin_mode_;

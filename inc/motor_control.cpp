@@ -26,14 +26,14 @@ MotorControl::MotorControl(void)
 void MotorControl::init(int period)
 {
 	motor_control_data.control_period = period;
-	motor[0].init(Apin,B14,TIMER8 ,CH2);
-	motor[0].init(Bpin,B15,TIMER8 ,CH3);
-	motor[1].init(Apin,A8 ,TIMER1 ,CH1);
-	motor[1].init(Bpin,A11,TIMER1 ,CH2);
-	motor[2].init(Apin,A6 ,TIMER13,CH1);
-	motor[2].init(Bpin,A7 ,TIMER14,CH1);
-	motor[3].init(Apin,B8 ,TIMER10,CH1);
-	motor[3].init(Bpin,B9 ,TIMER11,CH1);
+	motor[0].init(Apin,B15,TIMER12 ,CH2);
+	motor[0].init(Bpin,B14,TIMER12 ,CH1);
+	motor[1].init(Apin,A11,TIMER1 ,CH4);
+	motor[1].init(Bpin,A8 ,TIMER1 ,CH1);
+	motor[2].init(Apin,A7 ,TIMER14,CH1);
+	motor[2].init(Bpin,A6 ,TIMER13,CH1);
+	motor[3].init(Apin,B9 ,TIMER11,CH1);
+	motor[3].init(Bpin,B8 ,TIMER10,CH1);
 	encoder[0].init(A0,A1,TIMER5);
 	encoder[1].init(A5,B3,TIMER2);
 	encoder[2].init(B6,B7,TIMER4);
