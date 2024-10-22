@@ -31,14 +31,22 @@ enum {
 
 enum MddStdid{
 	None,
-	MDD_0 = 0xF0,
-	MDD_1 = 0xF1,
-	MDD_2 = 0xF2,
-	MDD_3 = 0xF3,
-	MDD_4 = 0xF4,
-	MDD_5 = 0xF5,
-	MDD_6 = 0xF6,
-	MDD_7 = 0xF7,
+	MDD_0 = 0x300,
+	MDD_1 = 0x301,
+	MDD_2 = 0x302,
+	MDD_3 = 0x303,
+	MDD_4 = 0x304,
+	MDD_5 = 0x305,
+	MDD_6 = 0x306,
+	MDD_7 = 0x307,
+	MDD_8 = 0x308,
+	MDD_9 = 0x309,
+	MDD_A = 0x30A,
+	MDD_B = 0x30B,
+	MDD_C = 0x30C,
+	MDD_D = 0x30D,
+	MDD_E = 0x30E,
+	MDD_F = 0x30F,
 };
 
 struct receive_data_t {

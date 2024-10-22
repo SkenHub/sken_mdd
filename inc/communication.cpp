@@ -159,5 +159,13 @@ void Communication::selectStdid(uint8_t id){
 	case 5:	my_stdid = MDD_5; break;
 	case 6: my_stdid = MDD_6; break;
 	case 7:	my_stdid = MDD_7; break;
+	case 8: my_stdid = MDD_8; break;
+	case 9: my_stdid = MDD_9; break;
+	case 10:my_stdid = MDD_A; break;
+	case 11:my_stdid = MDD_B; break;
+	case 12:my_stdid = MDD_C; break;
+	case 13:my_stdid = MDD_D; break;
+	case 14:my_stdid = MDD_E; break;
+	case 15:my_stdid = MDD_F; break;
 	}
 }

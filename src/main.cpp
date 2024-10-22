@@ -3,12 +3,18 @@
 #include "define_data_struct.h"
 #include "mdd.h"
 
+/* setting */
+/* mdd_id (0~15) */
+uint8_t mdd_id = 0;
+
+/* ------- */
+
+
 Mdd mdd;
 
 const int CONTROL_PERIOD = 1;
 
 Gpio sw[4];
-uint8_t mdd_id;
 
 motor_control_data_t motor_control_data;
 receive_data_t receive_data;
@@ -26,14 +32,17 @@ int main(void)
 	sw[2].init(C1,INPUT_PULLUP);
 	sw[3].init(C0,INPUT_PULLUP);
 
-	//if(!sw[0].read()){
-		mdd.init(UART_MODE,CONTROL_PERIOD);
-	/*}else{
+	/*if(!sw[0].read()){
+		//mdd.init(UART_MODE,CONTROL_PERIOD);
+	}else{
 		for(int i=0; i<3; i++){
 			mdd_id |= ((!sw[i+1].read())<<(2-i));
 		}
 		mdd.init(CAN_MODE,CONTROL_PERIOD,mdd_id);
 	}*/
+
+	mdd.init(CAN_MODE,CONTROL_PERIOD,mdd_id);
+
 	sken_system.addTimerInterruptFunc(control,CONTROL_PERIOD);
 	while (1) {
 		motor_control_data = mdd.getMotorControlData();
